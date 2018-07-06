@@ -1,4 +1,4 @@
-##TIMESTAMPA <br />A timestamp microservice project for FreeCodeCamp
+TIMESTAMPA <br />A timestamp microservice project for FreeCodeCamp
 ----
 #### USER STORIES:
 
