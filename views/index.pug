@@ -1,0 +1,57 @@
+extends _header.pug
+
+block append body
+  body
+    .container
+      header.header.py-3
+        .row.flex-nowrap.justify-content-between.align-items-center
+          .col-12.text-center
+            h1.header-logo.text-dark #{api ? 'Timestampa API' : 'Timestampa'}
+
+      main.row.justify-content-md-center
+        if api
+          .col-8
+            h2.mt-4 Welcome to the API.
+            p.lead  This is just the home page for the API microservice. Nothing too fancy. 
+              | To test the API you can do it by clicking the following links.
+          .col-8.mt-3
+            h3 Usage:
+            ul
+              li Get Unix and UTC dates for a given date #[em in  YYYY-MM-DD format]:
+                br/
+                a( href="timestamp/2018-07-06" ) GET [domain]/api/timestamp/2018-07-06
+              li Get Unix and UTC dates for a given date #[em in milliseconds]:
+                br/
+                a( href="timestamp/1530835200000" ) GET [domain]/api/timestamp/1530835200000
+              li Get Unix and UTC dates for #[em the present date]:
+                br/
+                a( href="timestamp/" ) GET [domain]/api/timestamp/
+          .col-8.mt-3
+            h3 Output:
+            p The output will always have the same format if a valid date is passed through the 
+              | parameter or no parameter is passed (the present time is returned in the latter case):
+            p 
+              code { "unix" : 1530835200000, "utc" : "Fri, 06 Jul 2018 00:00:00 GMT" }
+            p If the input is not valid, though, an error will be returned:
+            p 
+              code { 	"error" : "Invalid Date" }
+        else
+          .col-8
+            h1.mt-5 Greetings, visitor!
+            p.lead  You just arrived to the main page of the API. Here you will be presented with 
+              | the user stories required to pass the freeCodeCamp tests.
+            p If you just want to test the API, navigate to #[a( href="api/" ) the API docs].
+            h3 User Stories:
+            ol( class="user-stories" )
+              li The API endpoint is #[code GET [project_url]/api/timestamp/:date_string?]
+              li A date string is valid if can be successfully parsed by #[code new Date(date_string)]
+                br/ Note that the unix timestamp needs to be an #[strong integer] (not a string) specifying #[strong milliseconds].
+                br/ In our test we will use date strings compliant with ISO-8601 (e.g. #[code "2016-11-20"]) because this will ensure an UTC timestamp.
+              li If the date string is #[strong empty] it should be equivalent to trigger #[code new Date()], i.e. the service uses the current timestamp.
+              li If the date string is #[strong valid] the api returns a JSON having the structure
+                | #[code {"unix": &lt;date.getTime()&gt;, "utc" : &lt;date.toUTCString()&gt; }]
+                | e.g. #[code {"unix": 1479663089000 ,"utc": "Sun, 20 Nov 2016 17:31:29 GMT"}]
+              li If the date string is #[strong invalid] the api returns a JSON having the structure
+                | #[code { "error" : "Invalid Date" }].
+
+  include _footer.pug
